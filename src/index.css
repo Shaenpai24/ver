@@ -2,66 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Color Hunt Palette - Beautiful Dark Theme */
-:root {
-  --dark-navy: #19183B;
-  --steel-blue: #708993;
-  --mint-green: #A1C2BD;
-  --soft-white: #E7F2EF;
-  --circuit-dark: #19183B;
-  --navy: #19183B;
-  --electric-blue: #708993;
-  --cyan-accent: #708993;
-  --circuit-green: #A1C2BD;
-  --neon-green: #A1C2BD;
-  --electric-yellow: #A1C2BD;
-  --yellow-accent: #A1C2BD;
-  --soft-text: #E7F2EF;
-  --circuit-gray: #708993;
-  --muted-blue: #708993;
-  --electric-red: #FF6B6B;
-  --voltage-purple: #8B5CF6;
-  --resistor-orange: #FF6B35;
-  --capacitor-blue: #3B82F6;
-}
-
-/* Force dark theme on body */
-body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: var(--circuit-dark) !important;
-    color: var(--soft-text) !important;
-}
-
-/* Ensure all backgrounds are dark */
-* {
-    box-sizing: border-box;
-}
-
-/* Custom utility classes for electrical engineering theme */
-.bg-circuit-dark { background-color: var(--circuit-dark) !important; }
-.bg-electric-blue { background-color: var(--electric-blue) !important; }
-.bg-circuit-green { background-color: var(--circuit-green) !important; }
-.bg-electric-yellow { background-color: var(--electric-yellow) !important; }
-.bg-circuit-gray { background-color: var(--circuit-gray) !important; }
-.bg-electric-red { background-color: var(--electric-red) !important; }
-
-.text-electric-blue { color: var(--electric-blue) !important; }
-.text-circuit-green { color: var(--circuit-green) !important; }
-.text-electric-yellow { color: var(--electric-yellow) !important; }
-.text-electric-red { color: var(--electric-red) !important; }
-.text-soft-text { color: var(--soft-text) !important; }
-
-.border-electric-blue { border-color: var(--electric-blue) !important; }
-.border-circuit-green { border-color: var(--circuit-green) !important; }
-.border-electric-yellow { border-color: var(--electric-yellow) !important; }
-.border-electric-red { border-color: var(--electric-red) !important; }
-
-/* Fix input text color issues */
-input[type="text"], input[type="email"], input[type="password"], textarea {
-  color: var(--soft-text) !important;
-}
-
-input[type="text"]::placeholder, input[type="email"]::placeholder, input[type="password"]::placeholder, textarea::placeholder {
-  color: #94a3b8 !important;
-}
+/*
+  DELETE EVERYTHING ELSE.
+  All the old CSS variables (--circuit-dark, etc.)
+  and !important tags must be removed.
+  This file should ONLY contain these three lines.
+*/
