@@ -1,0 +1,87 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user is the resource owner
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Artifacts collection structure
+    match /artifacts/{appId} {
+      
+      // Public data that authenticated users can read
+      match /public/data/questions/{questionId} {
+        // Anyone authenticated can read questions
+        allow read: if isAuthenticated();
+        
+        // Only server/admin can write questions
+        allow write: if false; // Disabled for security - use server-side only
+      }
+      
+      // Public teams data
+      match /public/data/teams/{userId} {
+        // Anyone authenticated can read team data for leaderboard
+        allow read: if isAuthenticated();
+        
+        // Users can only update their own team data
+        allow update: if isOwner(userId);
+        
+        // Only server can create team documents
+        allow create: if false; // Use server-side only
+      }
+      
+      // Game config
+      match /public/data/game_config/settings {
+        // Anyone authenticated can read game config
+        allow read: if isAuthenticated();
+        
+        // Only server/admin can modify config
+        allow write: if false; // Use server-side only
+      }
+      
+      // Private user data
+      match /users/{userId} {
+        // Users can only read their own data
+        allow read: if isOwner(userId);
+        
+        // Users can update their own data
+        allow update: if isOwner(userId);
+        
+        // Only server can create user documents
+        allow create: if false; // Use server-side only
+      }
+      
+      // PRIVATE ANSWERS - CRITICAL: No client access allowed
+      match /private/answers/{answerId} {
+        // NO client can read answers - only server-side functions
+        allow read: if false;
+        
+        // NO client can write answers - only server-side functions
+        allow write: if false;
+      }
+      
+      // Other private collections
+      match /private/{document=**} {
+        // Block all client access to private data
+        allow read, write: if false;
+      }
+    }
+    
+    // Answer attempts collection (for audit logging)
+    match /answer_attempts/{attemptId} {
+      // Only server can write (via Cloud Functions)
+      allow read, write: if false;
+    }
+    
+    // Catch-all: Deny access to everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
